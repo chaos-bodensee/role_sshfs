@@ -1,4 +1,28 @@
 ---
+# mount fuse/sshfs
+sshfs: []
+#  - server: example.com
+#    user: pi
+#    remote: /home/pi/backup
+#    local: /mnt/example.com 
+
+# your local ssh user
+sshfs_local_user: "{{ ansible_user }}"
+# your local home path:
+sshfs_local_home: "/home/{{ sshfs_local_user }}/"
+
+# should we manage your .ssh/config?
+manage_ssh_config: false
+
+# should we manage a private ssh key (not recomended
+manage_private_ssh_keys: false
+# where is your (ansible-vault encrypted) ssh key
+sshfs_local_ssh_key: false
+# filename of remote ssh key
+sshfs_remote_key_name: 'id_ed25519'
+
+# daily mount fuse/sshfs
+cron_mount_fuse: false
 
 # version check for this role?
 submodules_versioncheck: true

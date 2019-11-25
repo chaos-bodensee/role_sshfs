@@ -1,0 +1,21 @@
+---
+- name: mkdir .ssh
+  become: true
+  ansible_become_user: "{{ sshfs_local_user }}"
+  file:
+    path: '{{ sshfs_local_home }}.ssh'
+    state: directory
+    owner: "{{ sshfs_local_user }}"
+    group: "{{ sshfs_local_user }}"
+    mode: '0755'
+
+- name: copy private ssh key
+  become: true
+  ansible_become_user: "{{ sshfs_local_user }}"
+  copy:
+    src: 'files/id_backup.wingcon.com_rsa'
+    dest: "{{ sshfs_local_home }}.ssh/{{ sshfs_remote_key_name }}"
+    owner: "{{ sshfs_local_user }}"
+    group: "{{ sshfs_local_user }}"
+    mode: '0600'
+    backup: yes

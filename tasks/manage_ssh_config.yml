@@ -1,0 +1,27 @@
+---
+- name: cleanup .ssh/config
+  become: true
+  ansible_become_user: "{{ sshfs_local_user }}"
+  file:
+    path: "{{ sshfs_local_home }}.ssh/config"
+    state: absent
+  changed_when: False
+
+- name: "create entry for {{ item.server }} in .ssh/config"
+  become: true
+  ansible_become_user: "{{ sshfs_local_user }}"
+  lineinfile:
+    path: "{{ sshfs_local_home }}.ssh/config"
+    line: "Host {{item.server}}\n\tUserKnownHostsFile=/dev/null\n\tStrictHostKeyChecking no"
+    create: yes
+  with_items: "{{ sshfs }}"
+  changed_when: False
+
+- name: create basic ssh config
+  become: true
+  ansible_become_user: "{{ sshfs_local_user }}"
+  lineinfile:
+    path: "{{ sshfs_local_home }}.ssh/config"
+    line: "Host *\n\tStrictHostKeyChecking yes"
+    create: yes
+  changed_when: False
