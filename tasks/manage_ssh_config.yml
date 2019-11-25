@@ -12,7 +12,7 @@
   become_user: "{{ sshfs_local_user }}"
   lineinfile:
     path: "{{ sshfs_local_home }}.ssh/config"
-    line: "Host {{item.server}}\n\tUserKnownHostsFile=/dev/null\n\tStrictHostKeyChecking no"
+    line: "Host {{ item.server }}\n\tUserKnownHostsFile=/dev/null\n\tStrictHostKeyChecking no"
     create: yes
   with_items: "{{ sshfs }}"
   changed_when: False
