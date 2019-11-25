@@ -1,2 +1,5 @@
-# role_sshfs
+ role fuse/sshfs
+=================
 Ansible role to manage fuse/sshfs
+
+
