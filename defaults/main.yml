@@ -11,7 +11,7 @@ sshfs_local_user: "{{ ansible_user }}"
 # your local home path:
 sshfs_local_home: "/home/{{ sshfs_local_user }}/"
 
-# should we manage your .ssh/config?
+# should we manage your .ssh/config and whitelist all configured entrys?
 manage_ssh_config: false
 
 # should we manage a private ssh key (not recomended
