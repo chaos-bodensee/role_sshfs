@@ -16,7 +16,7 @@
 
 - name: create directory for fuse/sshfs
   become: true
-  ansible_become_user: "{{ sshfs_local_user }}"
+  become_user: "{{ sshfs_local_user }}"
   file:
     path: "{{ item.local }}"
     state: directory
@@ -27,7 +27,7 @@
 
 - name: Mount secound disks for wingcon backup
   become: true
-  ansible_become_user: "{{ sshfs_local_user }}"
+  become_user: "{{ sshfs_local_user }}"
   mount:
     path: "{{ item.local }}"
     src: "sshfs#{{ item.user }}@{{ item.server }}:{{ item.remote }}"
@@ -37,12 +37,11 @@
 
 - name: remount fuse
   become: true
-  ansible_become_user: "{{ sshfs_local_user }}"
   cron:
     name: remount files
     minute: '1'
     hour: '0'
     job: 'mount -a'
     cron_file: '/etc/crontab'
-  user: "{{ sshfs_local_user }}"
+    user: "{{ sshfs_local_user }}"
   when: cron_mount_fuse | bool
