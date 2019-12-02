@@ -13,6 +13,7 @@ sshfs_local_home: "/home/{{ sshfs_local_user }}/"
 
 # should we manage your .ssh/config and whitelist all configured entrys?
 manage_ssh_config: false
+default_strict_host_key_checking: 'yes' # or 'no'
 
 # should we manage a private ssh key (not recomended
 manage_private_ssh_keys: false

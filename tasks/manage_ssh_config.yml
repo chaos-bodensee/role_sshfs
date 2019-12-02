@@ -22,6 +22,6 @@
   become_user: "{{ sshfs_local_user }}"
   lineinfile:
     path: "{{ sshfs_local_home }}.ssh/config"
-    line: "Host *\n\tStrictHostKeyChecking yes"
+    line: "Host *\n\tStrictHostKeyChecking {{ default_strict_host_key_checking }}"
     create: yes
   changed_when: False
