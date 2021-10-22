@@ -22,5 +22,5 @@ For more config options and features have a look into the defaults folder!
 ### galaxy
 ```
 # install role via ansible-galaxy:
-ansible-galaxy install do1jlr.role_sshfs
+ansible-galaxy install do1jlr.sshfs
 ```
