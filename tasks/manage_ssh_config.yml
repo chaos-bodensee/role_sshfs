@@ -5,23 +5,25 @@
   file:
     path: "{{ sshfs_local_home }}.ssh/config"
     state: absent
-  changed_when: False
+  changed_when: false
 
 - name: "create entry for {{ item.server }} in .ssh/config"
   become: true
   become_user: "{{ sshfs_local_user }}"
   lineinfile:
     path: "{{ sshfs_local_home }}.ssh/config"
-    line: "Host {{ item.server }}\n\tUserKnownHostsFile=/dev/null\n\tStrictHostKeyChecking no"
-    create: yes
+    line: "Host {{ item.server }}\n  UserKnownHostsFile=/dev/null\n  StrictHostKeyChecking no"
+    create: true
+    mode: 0644
   with_items: "{{ sshfs }}"
-  changed_when: False
+  changed_when: false
 
 - name: create basic ssh config
   become: true
   become_user: "{{ sshfs_local_user }}"
   lineinfile:
     path: "{{ sshfs_local_home }}.ssh/config"
-    line: "Host *\n\tStrictHostKeyChecking {{ default_strict_host_key_checking }}"
-    create: yes
-  changed_when: False
+    line: "Host *\n  StrictHostKeyChecking {{ default_strict_host_key_checking }}"
+    create: true
+    mode: 0644
+  changed_when: false

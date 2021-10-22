@@ -1,5 +1,6 @@
 ---
-- include_tasks: versioncheck.yml
+- name: run optional versionscheck
+  include_tasks: versioncheck.yml
   when: submodules_versioncheck|bool
 
 - name: install sshfs package
