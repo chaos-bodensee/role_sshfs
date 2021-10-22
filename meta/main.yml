@@ -1,9 +1,10 @@
 ---
 galaxy_info:
-  author: L3D
+  author: do1jlr
+  role_name: sshfs
   description: Ansible role to manage fuse/sshfs
   license: "MIT"
-  min_ansible_version: 2.5
+  min_ansible_version: 2.11
   github_branch: master
   platforms:
     - name: Archlinux
@@ -13,11 +14,10 @@ galaxy_info:
     - name: Ubuntu
       versions: all
     - name: Fedora
-      versions:
-        - 28
-        - 29
-        - 30
+      versions: all
   galaxy_tags:
     - sshfs
     - fuse
+    - fusefs
+    - filesystem
 dependencies: []

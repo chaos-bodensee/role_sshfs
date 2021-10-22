@@ -1,23 +1,26 @@
 ---
-- include_tasks: versioncheck.yml
+- name: run optional versionscheck
+  include_tasks: versioncheck.yml
   when: submodules_versioncheck|bool
 
 - name: install sshfs package
   become: true
-  package:
+  ansible.builtin.package:
     name: sshfs
     state: present
 
-- include_tasks: manage_ssh_privkeys.yml
+- name: optionally manage ssh private keys
+  ansible.builtin.include_tasks: manage_ssh_privkeys.yml
   when: manage_private_ssh_keys | bool
 
-- include_tasks: manage_ssh_config.yml
+- name: optionally manage ssh config
+  ansible.builtin.include_tasks: manage_ssh_config.yml
   when: manage_ssh_config | bool
 
 - name: create directory for fuse/sshfs
   become: true
   become_user: "{{ sshfs_local_user }}"
-  file:
+  ansible.builtin.file:
     path: "{{ item.local }}"
     state: directory
     owner: "{{ sshfs_local_user }}"
@@ -25,19 +28,19 @@
     mode: 0755
   with_items: "{{ sshfs }}"
 
-- name: Mount secound disks for wingcon backup
+- name: mounting fuse
   become: true
   become_user: "{{ sshfs_local_user }}"
-  mount:
+  ansible.posix.mount:
     path: "{{ item.local }}"
     src: "sshfs#{{ item.user }}@{{ item.server }}:{{ item.remote }}"
     fstype: fuse
     state: mounted
   with_items: "{{ sshfs }}"
 
-- name: remount fuse
+- name: optionally setup cron to remount fuse
   become: true
-  cron:
+  ansible.builtin.cron:
     name: remount files
     minute: '1'
     hour: '0'
